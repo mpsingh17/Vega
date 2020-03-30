@@ -24,7 +24,7 @@ export class AuthCallbackComponent implements OnInit {
       return;
     }
     await this.authService.completeLogin();
-    this.router.navigate(['/fetch-data']);
+    this.router.navigate(['/']);
   }
 
 }

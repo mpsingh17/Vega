@@ -24,6 +24,10 @@ export class AuthService {
     return this.manager.signinRedirect();
   }
 
+  async logout() {
+    await this.manager.signoutRedirect();
+  }
+
   isAuthenticated(): boolean {
     return this.user != null && !this.user.expired;
   }
@@ -34,6 +38,10 @@ export class AuthService {
 
   get authorizationHeaderValue(): string {
     return `${this.user.token_type} ${this.user.access_token}`;
+  }
+
+  get name(): string {
+    return this.user != null ? this.user.profile.name : '';
   }
 
 }

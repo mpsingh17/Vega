@@ -17,14 +17,21 @@
                 <span class='glyphicon glyphicon-plus'></span> Vehicles
               </a>
             </li>
-            <li [routerLinkActive]='["link-active"]'>
+            <li [routerLinkActive]='["link-active"]' *ngIf="!isLoggedIn()">
               <a [routerLink]='["/register"]' (click)='collapse()'>
                 <span class='glyphicon glyphicon-user'></span> Register
               </a>
             </li>
-            <li [routerLinkActive]='["link-active"]'>
+            
+            <li [routerLinkActive]='["link-active"]' *ngIf="!isLoggedIn()">
               <a [routerLink]='["/login"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-user'></span> Login
+                <span class='glyphicon glyphicon-log-in'></span> Login
+              </a>
+            </li>
+            
+            <li [routerLinkActive]='["link-active"]' *ngIf="isLoggedIn()">
+              <a href="javascript:void(0)" (click)='logout()'>
+                <span class='glyphicon glyphicon-log-out'></span> Logout {{ getLoggedInUserName() }}
               </a>
             </li>
           </ul>
