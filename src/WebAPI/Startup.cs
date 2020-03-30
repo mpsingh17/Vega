@@ -36,7 +36,7 @@ namespace Vega
             .AddJwtBearer(
                 options => {
                     options.Authority = "https://localhost:4001";
-                    options.Audience = "webapi";
+                    options.Audience = "vegaapi";
                 }
             );
 
