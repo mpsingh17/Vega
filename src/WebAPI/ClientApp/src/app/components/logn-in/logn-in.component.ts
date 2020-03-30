@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserManager, UserManagerSettings, User} from 'oidc-client';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-logn-in',
@@ -10,35 +11,12 @@ import { HttpClient } from '@angular/common/http';
 
 export class LognInComponent implements OnInit {
 
-  private manager = new UserManager(getClientSettings());
-  private user: User | null;
-
-  constructor(private http:HttpClient) {
-    this.manager.getUser().then(user => {
-      this.user = user;
-    });
-
-  }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
-
+  
   login() {
-    return this.manager.signinRedirect();
+    this.authService.login();
   }
-}
-
-export function getClientSettings(): UserManagerSettings {
-  return {
-      authority: 'https://localhost:4001',
-      client_id: 'angular_spa',
-      redirect_uri: 'https://localhost:5001/auth-callback/',
-      post_logout_redirect_uri: 'https://localhost:5001/',
-      response_type:"id_token token",
-      scope:"openid profile email api.read",
-      filterProtocolClaims: true,
-      loadUserInfo: true,
-      automaticSilentRenew: true,
-      silent_redirect_uri: 'https://localhost:5001/silent-refresh.html'
-  };
 }

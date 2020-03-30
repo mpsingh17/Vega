@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Register } from '../../models/register';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,18 +17,24 @@ export class RegisterComponent implements OnInit {
     password: '',
     confirmPassword: ''
   };
-  private apiBase: string = "https://localhost:4001";
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onSubmit() {
-    console.log(this.userRegistration);
-    return this.http
-      .post<Register>(this.apiBase + "/api/account", this.userRegistration)
-      .subscribe(res => console.log(res));
+    this.auth.register(this.userRegistration)
+    .subscribe(res => {
+      console.log(res);
+      this.completeRegister();
+    });
+  }
+
+  completeRegister() {
+    this.router.navigate['/login'];
   }
 
 }
