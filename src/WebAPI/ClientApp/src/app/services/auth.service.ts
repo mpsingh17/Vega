@@ -24,8 +24,16 @@ export class AuthService {
     return this.manager.signinRedirect();
   }
 
+  isAuthenticated(): boolean {
+    return this.user != null && !this.user.expired;
+  }
+
   async completeLogin() {
     this.user = await this.manager.signinRedirectCallback();
+  }
+
+  get authorizationHeaderValue(): string {
+    return `${this.user.token_type} ${this.user.access_token}`;
   }
 
 }

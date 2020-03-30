@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Vehicle, KeyValuePair } from '../../models/vehicle';
 import { VehicleService } from '../../services/vehicle.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -21,7 +22,10 @@ export class VehicleListComponent implements OnInit {
     { title: "Contact Email", key: "contactEmail", isSortable: true },
   ];
 
-  constructor(private vehicleService: VehicleService) { }
+  constructor(
+    private vehicleService: VehicleService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
     this.vehicleService.getMakes()
@@ -31,7 +35,8 @@ export class VehicleListComponent implements OnInit {
   }
 
   private populateVehicles() {
-    this.vehicleService.getVehicles(this.filter)
+    let token = this.authService.authorizationHeaderValue;
+    this.vehicleService.getVehicles(this.filter, token)
     .subscribe(vl => this.vehicles = vl);
   }
 

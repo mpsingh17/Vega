@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Make } from '../models/make';
@@ -23,8 +23,16 @@ export class VehicleService {
     return this.http.get<Vehicle>(this.vehicleEndPoint + "/" + id);
   }
 
-  getVehicles(filter): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(this.vehicleEndPoint + '?' + this.toQueryString(filter));
+  getVehicles(filter, token: string): Observable<Vehicle[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': token
+      })
+    };
+
+    return this.http
+    .get<Vehicle[]>(this.vehicleEndPoint + '?' + this.toQueryString(filter), httpOptions);
   }
 
   toQueryString(obj) {
@@ -40,6 +48,7 @@ export class VehicleService {
   }
 
   create(vehicle): Observable<any> {
+    
     return this.http.post<any>(this.vehicleEndPoint, vehicle);
   }
 

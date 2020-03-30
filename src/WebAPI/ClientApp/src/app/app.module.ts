@@ -16,6 +16,7 @@ import { VehicleListComponent } from './components/vehicle-list/vehicle-list.com
 import { LognInComponent } from './components/logn-in/logn-in.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { AuthCallbackComponent } from './components/auth-callback/auth-callback.
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
-    VehicleService
+    VehicleService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
