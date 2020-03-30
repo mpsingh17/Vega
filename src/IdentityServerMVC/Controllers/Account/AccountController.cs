@@ -61,14 +61,6 @@ namespace IdentityServer4.Quickstart.UI
             _signInManager = signInManager;
         }
 
-        [HttpGet]
-        public IActionResult Register()
-        {
-            ViewData["title"] = "Register";
-
-            return View(new RegisterViewModel());
-        }
-
         [HttpPost]
         [Route("api/[controller]")]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel vm)
