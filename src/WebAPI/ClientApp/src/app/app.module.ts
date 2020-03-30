@@ -13,6 +13,7 @@ import { LognInComponent } from './components/logn-in/logn-in.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
 import { AuthService } from './services/auth.service';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { AuthService } from './services/auth.service';
       { path: 'register', component: RegisterComponent },
       { path: 'login', component: LognInComponent },
       { path: 'auth-callback', component: AuthCallbackComponent },
-      { path: 'vehicles', component: VehicleListComponent },
+      { path: 'vehicles', component: VehicleListComponent, canActivate: [AuthGuard] },
       { path: 'vehicles/new', component: VehicleFormComponent },
       { path: 'vehicles/:id', component: VehicleFormComponent },
     ])
@@ -41,7 +42,8 @@ import { AuthService } from './services/auth.service';
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
     VehicleService,
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
