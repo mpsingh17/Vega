@@ -35,8 +35,8 @@ import { AuthGuard } from './auth.guard';
       { path: 'login', component: LognInComponent },
       { path: 'auth-callback', component: AuthCallbackComponent },
       { path: 'vehicles', component: VehicleListComponent, canActivate: [AuthGuard] },
-      { path: 'vehicles/new', component: VehicleFormComponent },
-      { path: 'vehicles/:id', component: VehicleFormComponent },
+      { path: 'vehicles/new', component: VehicleFormComponent, canActivate: [AuthGuard] },
+      { path: 'vehicles/:id', component: VehicleFormComponent, canActivate: [AuthGuard] },
     ])
   ],
   providers: [
