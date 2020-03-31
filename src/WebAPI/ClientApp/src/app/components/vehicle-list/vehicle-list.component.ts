@@ -13,7 +13,9 @@ export class VehicleListComponent implements OnInit {
   vehicles: Vehicle[];
   allVehicles: Vehicle[];
   makes: KeyValuePair[];
-  filter: any = {};
+  filter: any = {
+    pageSize: 3
+  };
   columns = [
     { title: "Id" },
     { title: "Make", key: "make", isSortable: true },
@@ -53,6 +55,11 @@ export class VehicleListComponent implements OnInit {
     this.filter.sortBy = columnName;
     this.filter.isSortAsc = !(this.filter.isSortAsc);
     
+    this.populateVehicles();
+  }
+
+  onPageChange(page) {
+    this.filter.page = page;
     this.populateVehicles();
   }
 }

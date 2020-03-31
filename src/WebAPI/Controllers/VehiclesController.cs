@@ -10,7 +10,6 @@ using Vega.Core.Models;
 
 namespace Vega.Controllers
 {
-    [Authorize(Policy = "ApiReader")]
     [Route("/api/vehicles")]
     [ApiController]
     public class VehiclesController : Controller
@@ -34,6 +33,7 @@ namespace Vega.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "ApiReader")]
         public async Task<IEnumerable<VehicleResource>> GetVehicles([FromQuery] VehicleQueryResource FilterResource)
         {
             var filter = mapper.Map<VehicleQueryResource, VehicleQuery>(FilterResource);

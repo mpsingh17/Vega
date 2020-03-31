@@ -14,6 +14,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './auth.guard';
+import { PaginationComponent } from './components/shared/pagination.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AuthGuard } from './auth.guard';
     VehicleListComponent,
     LognInComponent,
     RegisterComponent,
-    AuthCallbackComponent
+    AuthCallbackComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
