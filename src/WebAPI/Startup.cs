@@ -28,22 +28,22 @@ namespace Vega
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(
-                options => {
-                    options.Authority = "https://localhost:4001";
-                    options.Audience = "vegaapi";
-                }
-            );
+            // services.AddAuthentication(options =>
+            // {
+            //     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            // })
+            // .AddJwtBearer(
+            //     options => {
+            //         options.Authority = "https://localhost:4001";
+            //         options.Audience = "vegaapi";
+            //     }
+            // );
 
-            services.AddAuthorization(options => 
-            {
-                options.AddPolicy("ApiReader", policy => policy.RequireClaim("scope", "api.read"));
-            });
+            // services.AddAuthorization(options => 
+            // {
+            //     options.AddPolicy("ApiReader", policy => policy.RequireClaim("scope", "api.read"));
+            // });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -52,10 +52,10 @@ namespace Vega
             services.AddDbContext<VegaDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
+            // services.AddSpaStaticFiles(configuration =>
+            // {
+            //     configuration.RootPath = "ClientApp/dist";
+            // });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IVehicleRepository, VehicleRepository>();
@@ -79,7 +79,7 @@ namespace Vega
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            // app.UseSpaStaticFiles();
 
             app.UseAuthentication();
             
@@ -87,23 +87,23 @@ namespace Vega
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    template: "{controller=Vehicles}/{action=Index}/{id?}");
             });
 
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
+            // app.UseSpa(spa =>
+            // {
+            //     // To learn more about options for serving an Angular SPA from ASP.NET Core,
+            //     // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "ClientApp";
+            //     spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
-                    // spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
-            // Seeder.Run(app);
+            //     if (env.IsDevelopment())
+            //     {
+            //         // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+            //         // spa.UseAngularCliServer(npmScript: "start");
+            //     }
+            // });
+            Seeder.Run(app);
         }
     }
 }
